@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Cart;
 use Session;
-
+use Stripe\Stripe;
 
 class ProductsController extends Controller
 {
@@ -57,6 +57,36 @@ class ProductsController extends Controller
     	// dd($cart->items);
     	return view('shop.checkout', ['totalPrice' => $cart->totalPrice]);
 
+    }
+
+    public function postCheckout(Request $request)
+    {
+         if(!Session::has('cart')){
+            return view('shop.shopping-cart');
+        }
+
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+
+        // Set your secret key: remember to change this to your live secret key in production
+        // See your keys here: https://dashboard.stripe.com/account/apikeys
+        Stripe::setApiKey("sk_test_s164uvn2x5liagTzDd68FACO");
+
+        try{
+                // Charge the user's card:
+            $charge = \Stripe\Charge::create(array(
+              "amount" => $cart->totalPrice * 100,
+              "currency" => "usd",
+              "description" => "Example charge",
+              "source" => $request->input('stripeToken'),
+            ));
+
+            }catch(Exception $e){
+                     return redirect(url('/checkout'))->with('error', $e->getMessage());
+                   }
+
+           Session::forget('cart');
+           return redirect(url('/store'))->with('success', 'Successfully purchased prodcuts!');
     }
 
 }

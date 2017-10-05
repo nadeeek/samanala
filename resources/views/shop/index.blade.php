@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-	@foreach($products->chunk(3) as $productChunk)
+	@foreach($products->chunk(4) as $productChunk)
 		<div class="row">
 		@foreach($productChunk as $product)
-			<div class="col-sm-6 col-md-4">
+			<div class="col-sm-6 col-md-3">
 			<div class="thumbnail">
 				<img src="{{ $product->image_path }}" alt="..."  class="img-thumbnail img-responsive">
 				<div class="caption">

@@ -25,3 +25,4 @@ Route::get('/store', 'ProductsController@index');
 Route::get('/add_to_cart/{id}', 'ProductsController@addToCart' );
 Route::get('/cart', 'ProductsController@getCart' );
 Route::get('/checkout', 'ProductsController@getCheckout' );
+Route::post('/checkout', 'ProductsController@postCheckout' );
