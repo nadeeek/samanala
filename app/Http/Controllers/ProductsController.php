@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Cart;
+use App\Order;
 use Session;
+use Auth;
 use Stripe\Stripe;
+use Stripe\Charge;
 
 class ProductsController extends Controller
 {
@@ -74,12 +77,21 @@ class ProductsController extends Controller
 
         try{
                 // Charge the user's card:
-            $charge = \Stripe\Charge::create(array(
-              "amount" => $cart->totalPrice * 100,
-              "currency" => "usd",
-              "description" => "Example charge",
-              "source" => $request->input('stripeToken'),
-            ));
+            // $charge = Charge::create(array(
+            //   "amount" => $cart->totalPrice * 100,
+            //   "currency" => "usd",
+            //   "description" => "Example charge",
+            //   "source" => $request->input('stripeToken'),
+            // ));
+
+            $order = new Order();
+            $order->cart = serialize($cart);
+            $order->address = $request->input('address');
+            $order->name = $request->input('name');
+            $order->payment_id = 123;
+
+            Auth::user()->orders()->save($order);
+
 
             }catch(Exception $e){
                      return redirect(url('/checkout'))->with('error', $e->getMessage());

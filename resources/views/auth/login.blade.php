@@ -61,6 +61,7 @@
                             </div>
                         </div>
                     </form>
+                    <p class="pull-right">Don't have an account? <a href="{{ url('/register')}}" class="btn btn-success">Sign Up</a></p>
                 </div>
             </div>
         </div>

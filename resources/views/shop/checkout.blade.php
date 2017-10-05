@@ -17,7 +17,13 @@
         <div class='form-row'>
           <div class='col-xs-12 form-group required'>
             <label class='control-label'>Name on Card</label>
-            <input class='form-control' id="name" size='4' type='text'>
+            <input class='form-control' id="name" name="name" size='4' type='text'>
+          </div>
+        </div>
+        <div class='form-row'>
+          <div class='col-xs-12 form-group required'>
+            <label class='control-label'>Address</label>
+            <textarea class='form-control' id="address" name="address"></textarea>
           </div>
         </div>
         <div class='form-row'>

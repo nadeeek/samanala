@@ -24,5 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/store', 'ProductsController@index');
 Route::get('/add_to_cart/{id}', 'ProductsController@addToCart' );
 Route::get('/cart', 'ProductsController@getCart' );
-Route::get('/checkout', 'ProductsController@getCheckout' );
-Route::post('/checkout', 'ProductsController@postCheckout' );
+Route::get('/checkout', 'ProductsController@getCheckout' )->middleware('auth');
+Route::post('/checkout', 'ProductsController@postCheckout' )->middleware('auth');
