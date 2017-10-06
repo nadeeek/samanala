@@ -33,7 +33,7 @@ class ProductsController extends Controller
 
     	//dd($request->session()->get('cart'));
 
-    	return redirect(url('/cart'))->with('success', 'Product added to Cart');
+    	return redirect(url('/store'))->with('success', 'Product added to Cart');
     }
 
     public function getCart()
